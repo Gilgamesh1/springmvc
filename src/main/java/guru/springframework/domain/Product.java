@@ -1,14 +1,12 @@
 package guru.springframework.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Setter
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Product {
