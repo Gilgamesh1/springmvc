@@ -57,4 +57,11 @@ public class ProductController {
         model.addAttribute("product", product);
         return "productform";
     }
+
+    @RequestMapping("/product/delete/{id}")
+    public String deleteProductForm(@PathVariable Integer id) {
+        log.info("deleteProductForm");
+        productService.deleteProduct(id);
+        return "redirect:/products";
+    }
 }

@@ -54,6 +54,11 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public void deleteProduct(Integer id) {
+        productMap.remove(id);
+    }
+
     public Integer genereID() {
         return Collections.max(productMap.keySet()) + 1;
     }
