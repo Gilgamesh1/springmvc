@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
         loadProduct();
     }
 
-    private Map<Integer, Product> loadProduct() {
+    private void loadProduct() {
         productMap = new HashMap<>();
         Product product1 = new Product(1, "Product 1", new BigDecimal(15456.15),
                 "http://example.com/product1");
@@ -28,7 +28,6 @@ public class ProductServiceImpl implements ProductService {
         productMap.put(2, product2);
         productMap.put(3, product3);
         productMap.put(4, product4);
-        return productMap;
     }
 
     @Override
