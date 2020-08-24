@@ -27,20 +27,20 @@ public class ProductController {
     public String listProducts(Model model) {
         log.info("listProducts");
         model.addAttribute("products", productService.listAllProduct());
-        return "products";
+        return "product/products";
     }
 
     @RequestMapping("/product/{id}")
     public String getAProduct(@PathVariable Integer id, Model model) {
         log.info("listProducts");
         model.addAttribute("product", productService.getProduct(id));
-        return "product";
+        return "product/product";
     }
 
     @RequestMapping("/product/new")
     public String newProductForm(Model model) {
         model.addAttribute("product", new Product());
-        return "productform";
+        return "product/productform";
     }
 
     @RequestMapping(value = "/product", method = RequestMethod.POST)
@@ -55,7 +55,7 @@ public class ProductController {
         log.info("editProductForm");
         Product product = productService.getProduct(id);
         model.addAttribute("product", product);
-        return "productform";
+        return "product/productform";
     }
 
     @RequestMapping("/product/delete/{id}")

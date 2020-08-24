@@ -24,28 +24,28 @@ public class CustomerController {
     public String getListCustomers(Model model) {
         log.info("getListCustomers");
         model.addAttribute("customers", customerService.listAllCustomer());
-        return "customers";
+        return "customer/customers";
     }
 
     @RequestMapping(value = "/customer/{id}")
     public String showCustomers(@PathVariable Integer id, Model model) {
         log.info("showCustomers");
         model.addAttribute("customer", customerService.getCustomer(id));
-        return "customer";
+        return "customer/customer";
     }
 
     @RequestMapping(value = "/customer/new")
     public String customerFrom(Model model) {
         log.info("customerFrom");
         model.addAttribute("customer", new Customer());
-        return "customerform";
+        return "customer/customerform";
     }
 
     @RequestMapping(value = "/customer/edit/{id}")
     public String customerFromEdit(@PathVariable Integer id,Model model) {
         log.info("customerFromEdit");
         model.addAttribute("customer", customerService.getCustomer(id));
-        return "customerform";
+        return "customer/customerform";
     }
 
     @RequestMapping(value = "/customer", method = RequestMethod.POST)
