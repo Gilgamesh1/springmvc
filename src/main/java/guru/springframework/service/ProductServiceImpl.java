@@ -1,20 +1,19 @@
 package guru.springframework.service;
 
 import guru.springframework.domain.Product;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+@Profile("map")
+public class ProductServiceImpl extends AbstractMapService implements ProductService {
     private Map<Integer, Product> productMap;
 
-    public ProductServiceImpl() {
-        loadProduct();
-    }
-
-    private void loadProduct() {
+    @Override
+    protected void loadDomainObjects() {
         productMap = new HashMap<>();
         Product product1 = new Product(1, "Product 1", new BigDecimal(15456.15),
                 "http://example.com/product1");
@@ -32,33 +31,21 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> listAllProduct() {
-        return new ArrayList<>(productMap.values());
+        return super.listAll();
     }
 
     @Override
     public Product getProduct(int id) {
-        return productMap.get(id);
+        return super.getById(id);
     }
 
     @Override
     public Product saveOrUpdateProduct(Product product) {
-        if (product != null) {
-            if (product.getId() == null) {
-                product.setId(genereID());
-            }
-            productMap.put(product.getId(), product);
-            return product;
-        } else {
-            throw new RuntimeException("No puede ser null");
-        }
+        return super.saveOrUpdate(product);
     }
 
     @Override
     public void deleteProduct(Integer id) {
-        productMap.remove(id);
-    }
-
-    public Integer genereID() {
-        return Collections.max(productMap.keySet()) + 1;
+      super.delete(id);
     }
 }

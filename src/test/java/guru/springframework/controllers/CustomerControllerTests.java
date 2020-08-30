@@ -1,7 +1,6 @@
 package guru.springframework.controllers;
 
 import guru.springframework.domain.Customer;
-import guru.springframework.domain.Product;
 import guru.springframework.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.HandlerExceptionResolver;
-import sun.plugin2.message.CustomSecurityManagerRequestMessage;
 
 import java.util.ArrayList;
 import java.util.List;

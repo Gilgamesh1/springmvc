@@ -11,11 +11,11 @@ public class SpringmvcApplication {
 
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(SpringmvcApplication.class, args);
-        log.info("*********BEANS********");
-        log.info(ctx.getBeanDefinitionCount());
-        for (String bean : ctx.getBeanDefinitionNames()) {
-            log.info(bean);
-        }
+//        log.info("*********BEANS********");
+//        log.info(ctx.getBeanDefinitionCount());
+//        for (String bean : ctx.getBeanDefinitionNames()) {
+//            log.info(bean);
+//        }
     }
 
 }
