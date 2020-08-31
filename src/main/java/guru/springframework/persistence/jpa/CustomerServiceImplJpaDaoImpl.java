@@ -49,7 +49,7 @@ public class CustomerServiceImplJpaDaoImpl implements CustomerService {
         }
         Customer customer = entityManager.merge(domainObject);
         entityManager.getTransaction().commit();
-        return null;
+        return customer;
     }
 
     @Override

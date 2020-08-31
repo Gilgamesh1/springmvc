@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-public class User implements DomainObject{
+public class User implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -23,6 +23,8 @@ public class User implements DomainObject{
     @Version
     private Integer version;
     private Boolean enabled = true;
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Customer customer;
 
     public User(String userName, String password) {
         this.userName = userName;
@@ -41,5 +43,14 @@ public class User implements DomainObject{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(@org.jetbrains.annotations.NotNull Customer customer) {
+        this.customer = customer;
+        customer.setUser(this);
     }
 }

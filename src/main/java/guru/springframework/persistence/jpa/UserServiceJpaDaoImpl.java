@@ -46,9 +46,9 @@ public class UserServiceJpaDaoImpl implements UserService {
         if (domainObject.getPassword() != null) {
             domainObject.setStrongPassword(encryptionService.encryptString(domainObject.getPassword()));
         }
-        entityManager.merge(domainObject);
+        User user = entityManager.merge(domainObject);
         entityManager.getTransaction().commit();
-        return null;
+        return user;
     }
 
     @Override
