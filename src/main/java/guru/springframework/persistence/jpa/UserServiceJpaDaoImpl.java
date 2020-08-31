@@ -1,8 +1,8 @@
 package guru.springframework.persistence.jpa;
 
-import guru.springframework.persistence.domain.Customer;
-import guru.springframework.service.CustomerService;
+import guru.springframework.persistence.domain.User;
 import guru.springframework.service.EncryptionService;
+import guru.springframework.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @Profile("jpadao")
-public class CustomerServiceImplJpaDaoImpl implements CustomerService {
+public class UserServiceJpaDaoImpl implements UserService {
     private EntityManagerFactory emf;
     private EncryptionService encryptionService;
 
@@ -28,26 +28,25 @@ public class CustomerServiceImplJpaDaoImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> listAll() {
+    public List<User> listAll() {
         EntityManager entityManager = emf.createEntityManager();
-        return entityManager.createQuery("from Customer", Customer.class).getResultList();
+        return entityManager.createQuery("from User", User.class).getResultList();
     }
 
     @Override
-    public Customer getById(Integer id) {
+    public User getById(Integer id) {
         EntityManager entityManager = emf.createEntityManager();
-        return entityManager.find(Customer.class, id);
+        return entityManager.find(User.class, id);
     }
 
     @Override
-    public Customer saveOrUpdate(Customer domainObject) {
+    public User saveOrUpdate(User domainObject) {
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
-        if (domainObject.getUser() != null && domainObject.getUser().getPassword() != null) {
-            domainObject.getUser().setStrongPassword(
-                    encryptionService.encryptString(domainObject.getUser().getPassword()));
+        if (domainObject.getPassword() != null) {
+            domainObject.setStrongPassword(encryptionService.encryptString(domainObject.getPassword()));
         }
-        Customer customer = entityManager.merge(domainObject);
+        entityManager.merge(domainObject);
         entityManager.getTransaction().commit();
         return null;
     }
@@ -56,7 +55,7 @@ public class CustomerServiceImplJpaDaoImpl implements CustomerService {
     public void delete(Integer id) {
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.remove(entityManager.find(Customer.class, id));
+        entityManager.remove(entityManager.find(User.class, id));
         entityManager.getTransaction().commit();
     }
 }

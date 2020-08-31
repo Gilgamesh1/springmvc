@@ -1,7 +1,9 @@
-package guru.springframework.service;
+package guru.springframework.service.impl;
 
 import guru.springframework.persistence.domain.Customer;
 import guru.springframework.persistence.domain.DomainObject;
+import guru.springframework.service.AbstractMapService;
+import guru.springframework.service.CustomerService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 

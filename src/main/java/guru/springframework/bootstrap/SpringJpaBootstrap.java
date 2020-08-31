@@ -2,6 +2,7 @@ package guru.springframework.bootstrap;
 
 import guru.springframework.persistence.domain.Customer;
 import guru.springframework.persistence.domain.Product;
+import guru.springframework.persistence.domain.User;
 import guru.springframework.service.CustomerService;
 import guru.springframework.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +50,16 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
     private void loadCustomers() {
         Customer customer1 = new Customer(1, "Nombre 1", "Apellidos", "email1@email.com", "897897897", "Direccion 1", "Direccion 2", "Ciudad 1", "Estado 1", "Zip Code 1");
+        customer1.setUser(new User(1, "raul", "jaja"));
         customerService.saveOrUpdate(customer1);
         Customer customer2 = new Customer(2, "Nombre 2", "Apellidos", "email2@email.com", "897897897", "Direccion 2", "Direccion 2", "Ciudad 2", "Estado 2", "Zip Code 2");
+        customer2.setUser(new User("maria", "jaja"));
         customerService.saveOrUpdate(customer2);
         Customer customer3 = new Customer(3, "Nombre 3", "Apellidos", "email3@email.com", "897897897", "Direccion 3", "Direccion 3", "Ciudad 3", "Estado 3", "Zip Code 3");
+        customer3.setUser(new User("jose", "zuam"));
         customerService.saveOrUpdate(customer3);
         Customer customer4 = new Customer(4, "Nombre 4", "Apellidos", "email4@email.com", "897897897", "Direccion 4", "Direccion 4", "Ciudad 4", "Estado 4", "Zip Code 4");
+        customer4.setUser(new User("percy", "werty"));
         customerService.saveOrUpdate(customer4);
     }
 }

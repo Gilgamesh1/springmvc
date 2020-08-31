@@ -25,6 +25,8 @@ public class Customer implements DomainObject{
     private String city;
     private String state;
     private String zipCode;
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
 
     public Customer(Integer id, String firstName, String lastName, String email, String phoneNumber, String addressLine1, String addressLine2, String city, String state, String zipCode) {
         this.id = id;
