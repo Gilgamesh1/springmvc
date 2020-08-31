@@ -1,6 +1,6 @@
 package guru.springframework.controllers;
 
-import guru.springframework.domain.Customer;
+import guru.springframework.persistence.domain.Customer;
 import guru.springframework.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +40,7 @@ public class CustomerControllerTests {
         List<Customer> customerList = new ArrayList<>();
         customerList.add(new Customer());
         customerList.add(new Customer());
-        when(customerService.listAllCustomer()).thenReturn((List) customerList);
+        when(customerService.listAll()).thenReturn((List) customerList);
 
         mockMvc.perform(get("/customers"))
                 .andExpect(status().isOk())
@@ -51,7 +51,7 @@ public class CustomerControllerTests {
     @Test
     public void testShowCustomers() throws Exception {
         Integer id = 1;
-        when(customerService.getCustomer(id)).thenReturn(new Customer());
+        when(customerService.getById(id)).thenReturn(new Customer());
         mockMvc.perform(get("/customer/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("customer/customer"))
@@ -70,7 +70,7 @@ public class CustomerControllerTests {
     @Test
     public void customerFromEdit() throws Exception {
         Integer id = 1;
-        when(customerService.getCustomer(id)).thenReturn(new Customer());
+        when(customerService.getById(id)).thenReturn(new Customer());
         mockMvc.perform(get("/customer/edit/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("customer/customerform"))
@@ -90,7 +90,7 @@ public class CustomerControllerTests {
         String state = "arequipa";
         String zipCode = "054";
         Customer customer = new Customer(id, firstName, lastName, email, phoneNumber, addressLine1, addressLine2, city, state, zipCode);
-        when(customerService.saveOrUpdateCustomer(any(Customer.class))).thenReturn(customer);
+        when(customerService.saveOrUpdate(any(Customer.class))).thenReturn(customer);
 
         mockMvc.perform((post("/customer")
                 .param("id", "1")
@@ -118,7 +118,7 @@ public class CustomerControllerTests {
                 .andExpect(model().attribute("customer", hasProperty("zipCode", is(zipCode))));
 
         ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
-        verify(customerService).saveOrUpdateCustomer(customerArgumentCaptor.capture());
+        verify(customerService).saveOrUpdate(customerArgumentCaptor.capture());
         assertEquals(id, customerArgumentCaptor.getValue().getId());
         assertEquals(firstName, customerArgumentCaptor.getValue().getFirstName());
         assertEquals(lastName, customerArgumentCaptor.getValue().getLastName());
@@ -137,6 +137,6 @@ public class CustomerControllerTests {
         mockMvc.perform(post("/customer/delete/1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/customers"));
-        verify(customerService, times(1)).deleteCustomer(id);
+        verify(customerService, times(1)).delete(id);
     }
 }

@@ -1,4 +1,4 @@
-package guru.springframework.domain;
+package guru.springframework.persistence.domain;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Product {
+public class Product implements DomainObject{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -26,5 +26,13 @@ public class Product {
         this.description = description;
         this.price = price;
         this.imageUrl = imageUrl;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

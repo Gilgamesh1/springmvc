@@ -1,6 +1,6 @@
 package guru.springframework.controllers;
 
-import guru.springframework.domain.Customer;
+import guru.springframework.persistence.domain.Customer;
 import guru.springframework.service.CustomerService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +23,14 @@ public class CustomerController {
     @RequestMapping(value = "/customers")
     public String getListCustomers(Model model) {
         log.info("getListCustomers");
-        model.addAttribute("customers", customerService.listAllCustomer());
+        model.addAttribute("customers", customerService.listAll());
         return "customer/customers";
     }
 
     @RequestMapping(value = "/customer/{id}")
     public String showCustomers(@PathVariable Integer id, Model model) {
         log.info("showCustomers");
-        model.addAttribute("customer", customerService.getCustomer(id));
+        model.addAttribute("customer", customerService.getById(id));
         return "customer/customer";
     }
 
@@ -42,23 +42,23 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customer/edit/{id}")
-    public String customerFromEdit(@PathVariable Integer id,Model model) {
+    public String customerFromEdit(@PathVariable Integer id, Model model) {
         log.info("customerFromEdit");
-        model.addAttribute("customer", customerService.getCustomer(id));
+        model.addAttribute("customer", customerService.getById(id));
         return "customer/customerform";
     }
 
     @RequestMapping(value = "/customer", method = RequestMethod.POST)
     public String saveOrUpdateCustomer(Customer customer, Model model) {
         log.info("saveOrUpdateCustomer");
-        customerService.saveOrUpdateCustomer(customer);
+        customerService.saveOrUpdate(customer);
         return "redirect:/customers";
     }
 
     @RequestMapping(value = "/customer/delete/{id}")
     public String deleteCustomers(@PathVariable Integer id) {
         log.info("deleteCustomers");
-        customerService.deleteCustomer(id);
+        customerService.delete(id);
         return "redirect:/customers";
     }
 }

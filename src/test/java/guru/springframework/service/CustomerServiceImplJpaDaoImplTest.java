@@ -1,49 +1,48 @@
 package guru.springframework.service;
 
 import guru.springframework.configuration.JpaIntegrationConfig;
-import guru.springframework.persistence.domain.Product;
+import guru.springframework.persistence.domain.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.math.BigDecimal;
 import java.util.List;
+
 
 @SpringBootTest
 @ContextConfiguration(classes = {JpaIntegrationConfig.class})
 @ActiveProfiles({"jpadao"})
-public class ProductServiceJpaDaoImplTest {
-    private ProductService productService;
+public class CustomerServiceImplJpaDaoImplTest {
+    private CustomerService customerService;
 
     @Autowired
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @Test
     public void testListMethod() throws Exception {
-        List<Product> products = (List<Product>) productService.listAll();
-        assert products.size() == 4;
+        List<Customer> customers = (List<Customer>) customerService.listAll();
+        assert customers.size() == 4;
     }
 
     @Test
     public void testGetByIdMethod() throws Exception {
-        Product product = productService.getById(1);
-        assert product != null;
+        Customer customer = customerService.getById(1);
+        assert customer != null;
     }
 
     @Test
     public void testSaveOrUpdateMethod() throws Exception {
-        Product product1 = new Product(1, "Product 1", new BigDecimal(15456.15),
-                "http://example.com/product1");
-        Product product = productService.saveOrUpdate(product1);
-        assert product != null;
+        Customer customer1 = new Customer(1, "Nombre 1", "Apellidos", "email1@email.com", "897897897", "Direccion 1", "Direccion 2", "Ciudad 1", "Estado 1", "Zip Code 1");
+        Customer customer = customerService.saveOrUpdate(customer1);
+        assert customer != null;
     }
 
     @Test
     public void testDeleteMethod() throws Exception {
-        productService.delete(2);
+        customerService.delete(2);
     }
 }

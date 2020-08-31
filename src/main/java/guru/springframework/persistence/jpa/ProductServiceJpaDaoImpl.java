@@ -1,6 +1,7 @@
-package guru.springframework.service;
+package guru.springframework.persistence.jpa;
 
-import guru.springframework.domain.Product;
+import guru.springframework.persistence.domain.Product;
+import guru.springframework.service.ProductService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +21,19 @@ public class ProductServiceJpaDaoImpl implements ProductService {
     }
 
     @Override
-    public List<Product> listAllProduct() {
+    public List<Product> listAll() {
         EntityManager entityManager = emf.createEntityManager();
         return entityManager.createQuery("from Product", Product.class).getResultList();
     }
 
     @Override
-    public Product getProduct(int id) {
+    public Product getById(Integer id) {
         EntityManager entityManager = emf.createEntityManager();
         return entityManager.find(Product.class, id);
     }
 
     @Override
-    public Product saveOrUpdateProduct(Product product) {
+    public Product saveOrUpdate(Product product) {
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
         Product productSave = entityManager.merge(product);
@@ -41,7 +42,7 @@ public class ProductServiceJpaDaoImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Integer id) {
+    public void delete(Integer id) {
         EntityManager entityManager = emf.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.remove(entityManager.find(Product.class, id));

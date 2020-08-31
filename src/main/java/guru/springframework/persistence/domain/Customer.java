@@ -1,4 +1,4 @@
-package guru.springframework.domain;
+package guru.springframework.persistence.domain;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-public class Customer {
+public class Customer implements DomainObject{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -37,5 +37,12 @@ public class Customer {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
+    }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -1,11 +1,11 @@
 package guru.springframework.service;
 
-import guru.springframework.domain.Product;
+import guru.springframework.persistence.domain.DomainObject;
 
 import java.util.*;
 
 public abstract class AbstractMapService {
-    protected Map<Integer, Product> domainMap;
+    protected Map<Integer, DomainObject> domainMap;
     protected abstract void loadDomainObjects();
 
     public AbstractMapService() {
@@ -13,15 +13,15 @@ public abstract class AbstractMapService {
         loadDomainObjects();
     }
 
-    public List<Product> listAll() {
+    public List<DomainObject> listAll() {
         return new ArrayList<>(domainMap.values());
     }
 
-    public Product getById(Integer id) {
+    public DomainObject getById(Integer id) {
         return domainMap.get(id);
     }
 
-    public Product saveOrUpdate(Product domainObject) {
+    public DomainObject saveOrUpdate(DomainObject domainObject) {
         if (domainObject != null){
             if (domainObject.getId() == null){
                 domainObject.setId(getNextKey());
@@ -29,7 +29,7 @@ public abstract class AbstractMapService {
             domainMap.put(domainObject.getId(), domainObject);
             return domainObject;
         } else {
-            throw new RuntimeException("Object Can't be null");
+            throw new RuntimeException("El objeto no puede ser null");
         }
     }
 

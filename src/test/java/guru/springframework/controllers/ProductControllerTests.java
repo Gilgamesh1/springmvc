@@ -1,6 +1,6 @@
 package guru.springframework.controllers;
 
-import guru.springframework.domain.Product;
+import guru.springframework.persistence.domain.Product;
 import guru.springframework.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +40,7 @@ public class ProductControllerTests {
         List<Product> productsList = new ArrayList<>();
         productsList.add(new Product());
         productsList.add(new Product());
-        when(productService.listAllProduct()).thenReturn((List) productsList);
+        when(productService.listAll()).thenReturn((List) productsList);
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("product/products"))
@@ -50,7 +50,7 @@ public class ProductControllerTests {
     @Test
     public void testGetAProduct() throws Exception {
         Integer id = 1;
-        when(productService.getProduct(id)).thenReturn(new Product());
+        when(productService.getById(id)).thenReturn(new Product());
         mockMvc.perform(get("/product/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("product/product"))
@@ -79,7 +79,7 @@ public class ProductControllerTests {
         product.setPrice(precio);
         product.setImageUrl(url);
         Product product1 = mock(Product.class);
-        when(productService.saveOrUpdateProduct(org.mockito.ArgumentMatchers.any(Product.class))).thenReturn(product);
+        when(productService.saveOrUpdate(org.mockito.ArgumentMatchers.any(Product.class))).thenReturn(product);
         mockMvc.perform(post("/product")
                 .param("id", "1")
                 .param("description", description)
@@ -93,7 +93,7 @@ public class ProductControllerTests {
                 .andExpect(model().attribute("product", hasProperty("price", is(precio))))
                 .andExpect(model().attribute("product", hasProperty("imageUrl", is(url))));
         ArgumentCaptor<Product> productArgumentCaptor = ArgumentCaptor.forClass(Product.class);
-        verify(productService).saveOrUpdateProduct(productArgumentCaptor.capture());
+        verify(productService).saveOrUpdate(productArgumentCaptor.capture());
         assertEquals(id, productArgumentCaptor.getValue().getId());
         assertEquals(description, productArgumentCaptor.getValue().getDescription());
         assertEquals(precio, productArgumentCaptor.getValue().getPrice());
@@ -103,7 +103,7 @@ public class ProductControllerTests {
     @Test
     public void testEditProductForm() throws Exception {
         Integer id = 1;
-        when(productService.getProduct(id)).thenReturn(new Product());
+        when(productService.getById(id)).thenReturn(new Product());
         mockMvc.perform(get("/product/edit/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("product/productform"))
@@ -116,6 +116,6 @@ public class ProductControllerTests {
         mockMvc.perform(get("/product/delete/1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/products"));
-        verify(productService, times(1)).deleteProduct(id);
+        verify(productService, times(1)).delete(id);
     }
 }
