@@ -1,9 +1,12 @@
 package guru.springframework.persistence.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -11,7 +14,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Product implements DomainObject{
+public class Product implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

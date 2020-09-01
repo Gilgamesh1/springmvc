@@ -89,7 +89,8 @@ public class CustomerControllerTests {
         String city = "lima";
         String state = "arequipa";
         String zipCode = "054";
-        Customer customer = new Customer(id, firstName, lastName, email, phoneNumber, addressLine1, addressLine2, city, state, zipCode);
+        Customer customer = new Customer(id, firstName, lastName, email, phoneNumber);
+        //, addressLine1, addressLine2, city, state, zipCode
         when(customerService.saveOrUpdate(any(Customer.class))).thenReturn(customer);
 
         mockMvc.perform((post("/customer")
@@ -124,11 +125,11 @@ public class CustomerControllerTests {
         assertEquals(lastName, customerArgumentCaptor.getValue().getLastName());
         assertEquals(email, customerArgumentCaptor.getValue().getEmail());
         assertEquals(phoneNumber, customerArgumentCaptor.getValue().getPhoneNumber());
-        assertEquals(addressLine1, customerArgumentCaptor.getValue().getAddressLine1());
-        assertEquals(addressLine2, customerArgumentCaptor.getValue().getAddressLine2());
-        assertEquals(city, customerArgumentCaptor.getValue().getCity());
-        assertEquals(state, customerArgumentCaptor.getValue().getState());
-        assertEquals(zipCode, customerArgumentCaptor.getValue().getZipCode());
+//        assertEquals(addressLine1, customerArgumentCaptor.getValue().getAddressLine1());
+//        assertEquals(addressLine2, customerArgumentCaptor.getValue().getAddressLine2());
+//        assertEquals(city, customerArgumentCaptor.getValue().getCity());
+//        assertEquals(state, customerArgumentCaptor.getValue().getState());
+//        assertEquals(zipCode, customerArgumentCaptor.getValue().getZipCode());
     }
 
     @Test

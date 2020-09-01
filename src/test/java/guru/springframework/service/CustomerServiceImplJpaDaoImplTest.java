@@ -36,7 +36,8 @@ public class CustomerServiceImplJpaDaoImplTest {
 
     @Test
     public void testSaveOrUpdateMethod() throws Exception {
-        Customer customer1 = new Customer(1, "Nombre 1", "Apellidos", "email1@email.com", "897897897", "Direccion 1", "Direccion 2", "Ciudad 1", "Estado 1", "Zip Code 1");
+        Customer customer1 = new Customer(1, "Nombre 1", "Apellidos", "email1@email.com", "897897897");
+//        , "Direccion 1", "Direccion 2", "Ciudad 1", "Estado 1", "Zip Code 1"
         Customer customer = customerService.saveOrUpdate(customer1);
         assert customer != null;
     }
