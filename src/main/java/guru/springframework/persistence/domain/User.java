@@ -25,6 +25,8 @@ public class User implements DomainObject {
     private Boolean enabled = true;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Customer customer;
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+    private Cart cart;
 
     public User(String userName, String password) {
         this.userName = userName;
